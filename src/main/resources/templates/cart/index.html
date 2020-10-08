@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart Info</title>
+</head>
+<body>
+<h3>Cart Info</h3>
+<form method="post" th:action="${'/cart/update'}">
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Proto</th>
+        <th>Price</th>
+        <th>
+            Quantity
+            <input type="submit" value="Update">
+        </th>
+        <th>Sub Total</th>
+        <th>Option</th>
+    </tr>
+    <th:block th:each="item : ${session.cart}">
+        <tr>
+            <td align="center">
+                <a th:href="${'/cart/remove/' + item.product.id}">X</a>
+            </td>
+            <td th:text="${item.product.id}"></td>
+            <td th:text="${item.product.name}"></td>
+            <td th:text="${item.product.photo}"></td>
+            <td th:text="${item.product.price}"></td>
+            <td>
+                <input type="number" th:value="${item.quantity}" name="quantity" style="width: 50px;"/>
+            </td>
+            <td th:text="${item.product.price * item.quantity}"></td>
+
+        </tr>
+    </th:block>
+    <tr>
+        <td colspan="6">Total</td>
+        <td th:text="${total}"></td>
+    </tr>
+</table>
+
+</form>
+<a th:href="@{/}">Continue Shopping</a>
+</body>
+</html>
